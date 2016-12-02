@@ -1,8 +1,8 @@
 var express = require('express'),
   exphbs = require('express-handlebars'),
   bodyParser = require('body-parser'),
-  session = require('express-session');
-
+  session = require('express-session'),
+  flash = require('express-flash');
   var app = express();
 
   app.engine('handlebars', exphbs({
@@ -17,7 +17,7 @@ app.use(session({
 }));
 
 app.use(express.static(__dirname + '/public'));
-
+app.use(flash());
 app.use(bodyParser.urlencoded({
     extended: false
   }))
@@ -28,6 +28,7 @@ const fs = require('fs');
 app.get("/alerts", function(req, res) {
 
   fs.readdir('./public', function(err, files){
+    req.flash("warning", "This person is in your property.");
       res.render("home", {
         files : files[files.length-1]
       });
