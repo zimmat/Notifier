@@ -28,21 +28,8 @@ const fs = require('fs');
 app.get("/alerts", function(req, res) {
 
   fs.readdir('./public', function(err, files){
-    console.log(err);
-
-    var picList = []
-
-var pictures = files.forEach(function(items){
-      var picAsContent = { 'files' : items };
-    picList.push(picAsContent);
-    console.log(picList);
-      return picList;
-})
-
-// console.log(pictures);
-
       res.render("home", {
-        files : files[0]
+        files : files[files.length-1]
       });
   })
 });
